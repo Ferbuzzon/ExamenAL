@@ -1,0 +1,12 @@
+CREATE PROCEDURE [dbo].[sp_borra]
+	@Id int
+AS
+BEGIN
+    BEGIN TRANSACTION;
+    
+    DELETE FROM EMPLEADOS WHERE Idusuario=@Id;
+
+    INSERT INTO [MOVIMIENTOS-EMPLEADO] (Idusuario,TipoMovimiento,FechaMovimiento) VALUES (@Id,'BAJA', GETDATE());
+
+    COMMIT TRANSACTION;
+END;
